@@ -1,7 +1,7 @@
 class MetingJSElement extends HTMLElement {
 
   connectedCallback() {
-    if (window.APlayer && window.fetch) {
+    if (window.AlicePlayer && window.fetch) {
       this._init()
       this._parse()
     }
@@ -9,7 +9,7 @@ class MetingJSElement extends HTMLElement {
 
   disconnectedCallback() {
     if (!this.lock) {
-      this.aplayer.destroy()
+      // this.ap.destroy()
     }
   }
 
@@ -36,6 +36,8 @@ class MetingJSElement extends HTMLElement {
       delete config[key]
     }
     this.config = config
+
+    // window.meting_api = 'https://api.2heng.xin/meting/api.php?server=:server&type=:type&id=:id&auth=:auth&r=:r';
 
     this.api = this.meta.api || window.meting_api || 'https://api.i-meto.com/meting/api?server=:server&type=:type&id=:id&r=:r'
     if (this.meta.auto) this._parse_link()
@@ -106,30 +108,40 @@ class MetingJSElement extends HTMLElement {
 
   _loadPlayer(data) {
 
-    let defaultOption = {
-      audio: data,
-      mutex: true,
-      lrcType: this.meta.lrcType || 3,
-      storageName: 'metingjs'
-    }
+    console.log(data);
+    const playList = data.map(function (item) {
+      item.pic = 'https://ip.webmasterapi.com/api/imageproxy/' + item.pic
+      item.audio = item.url
+      return item
+    })
 
-    if (!data.length) return
 
-    let options = {
-      ...defaultOption,
-      ...this.config,
-    }
-    for (let optkey in options) {
-      if (options[optkey] === 'true' || options[optkey] === 'false') {
-        options[optkey] = (options[optkey] === 'true')
-      }
-    }
+    // let defaultOption = {
+    //   audio: data,
+    //   mutex: true,
+    //   lrcType: this.meta.lrcType || 3,
+    //   storageName: 'metingjs'
+    // }
+
+    // if (!data.length) return
+
+    // let options = {
+    //   ...defaultOption,
+    //   ...this.config,
+    // }
+    // for (let optkey in options) {
+    //   if (options[optkey] === 'true' || options[optkey] === 'false') {
+    //     options[optkey] = (options[optkey] === 'true')
+    //   }
+    // }
 
     let div = document.createElement('div')
-    options.container = div
+    // options.container = div
     this.appendChild(div)
 
-    this.aplayer = new APlayer(options)
+    this.ap = new AlicePlayer(playList, {
+      container: div
+    })
   }
 
 }
