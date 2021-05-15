@@ -37,7 +37,7 @@ class MetingJSElement extends HTMLElement {
     }
     this.config = config
 
-    // window.meting_api = 'https://api.2heng.xin/meting/api.php?server=:server&type=:type&id=:id&auth=:auth&r=:r';
+    window.meting_api = 'https://service-nkw594cl-1253826990.cd.apigw.tencentcs.com/release/meting?server=:server&type=:type&id=:id&auth=:auth&r=:r';
 
     this.api = this.meta.api || window.meting_api || 'https://api.i-meto.com/meting/api?server=:server&type=:type&id=:id&r=:r'
     if (this.meta.auto) this._parse_link()
@@ -108,9 +108,9 @@ class MetingJSElement extends HTMLElement {
 
   _loadPlayer(data) {
 
-    console.log(data);
+    // console.log(data);
     const playList = data.map(function (item) {
-      item.pic = 'https://ip.webmasterapi.com/api/imageproxy/' + item.pic
+      // item.pic = 'https://ip.webmasterapi.com/api/imageproxy/' + item.pic
       item.audio = item.url
       return item
     })
@@ -146,7 +146,7 @@ class MetingJSElement extends HTMLElement {
 
 }
 
-console.log('\n %c MetingJS v2.0.1 %c https://github.com/metowolf/MetingJS \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+// console.log('\n %c MetingJS v2.0.1 %c https://github.com/metowolf/MetingJS \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
 
 if (window.customElements && !window.customElements.get('meting-js')) {
   window.MetingJSElement = MetingJSElement
