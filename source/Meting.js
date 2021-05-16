@@ -39,6 +39,8 @@ class MetingJSElement extends HTMLElement {
 
     window.meting_api = 'https://service-nkw594cl-1253826990.cd.apigw.tencentcs.com/release/meting?server=:server&type=:type&id=:id&auth=:auth&r=:r';
 
+    // window.meting_api = 'https://api.2heng.xin/meting/api.php?server=:server&type=:type&id=:id&auth=:auth&r=:r';
+
     this.api = this.meta.api || window.meting_api || 'https://api.i-meto.com/meting/api?server=:server&type=:type&id=:id&r=:r'
     if (this.meta.auto) this._parse_link()
   }
@@ -110,7 +112,7 @@ class MetingJSElement extends HTMLElement {
 
     // console.log(data);
     const playList = data.map(function (item) {
-      // item.pic = 'https://ip.webmasterapi.com/api/imageproxy/' + item.pic
+      item.pic = 'https://ip.webmasterapi.com/api/imageproxy/' + item.pic
       item.audio = item.url
       return item
     })
